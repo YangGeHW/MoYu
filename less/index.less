@@ -1,0 +1,149 @@
+//out: ../css/index.css
+@import url(../css/base.css);
+
+:root {
+    --rel: #4d94ff;
+}
+
+// 头部区域
+.header {
+    margin: 10px;
+
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    // 标题左侧
+
+    .left {
+        display: flex;
+
+        .icon {
+            width: 50px;
+            height: 50px;
+            fill: currentColor;
+            overflow: hidden;
+        }
+
+        h1 {
+            padding-left: 10px;
+            color: var(--rel);
+        }
+
+    }
+
+    // 标题右侧
+    .right {
+        width: 50px;
+        height: 50px;
+        float: right;
+        transition: .5s;
+        overflow: hidden;
+
+        .icon {
+            width: 50px;
+            height: 50px;
+            fill: currentColor;
+            overflow: hidden;
+        }
+
+        &:hover {
+            width: 110px;
+        }
+    }
+
+}
+
+.mainData {
+
+    position: relative;
+    height: 400px;
+    background-color: var(--rel);
+
+    h2 {
+        font-size: 60px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+
+        p {
+            font-size: 35px;
+            position: absolute;
+            left: -40px;
+            top: -50%;
+        }
+    }
+
+    #nextEvent {
+        padding: 20px;
+        color: white;
+    }
+
+}
+
+.event {
+
+    margin: 20px auto;
+    width: 80%;
+
+    ul {
+
+        margin: 20px;
+        display: flex;
+        justify-content: space-evenly;
+
+        li {
+            position: relative;
+            padding: 10px;
+            width: 20vh;
+            height: 50vh;
+            background-color: var(--rel);
+            font-size: 5vh;
+            overflow: hidden;
+            border-radius: 10px;
+            
+            
+
+            &.action {
+                transition: .5s;
+                width: 60vh;
+                background-size: 100% 100%;
+            }
+
+            .main {
+                line-height: 20vh;
+            }
+
+            .text {
+                width: 30vh;
+                overflow: hidden;
+                position: absolute;
+                font-size: 2vh;
+                top: 5vh;
+                left: 28vh;
+            }
+
+            &:nth-child(1) {
+                background-color: red;
+            }
+
+            &:nth-child(2) {
+                background-color: orange;
+            }
+
+            &:nth-child(3) {
+                background-color: yellow;
+            }
+
+            &:nth-child(4) {
+                background-color: blue;
+            }
+
+            &:nth-child(5) {
+                background-color: green;
+            }
+        }
+    }
+
+}
