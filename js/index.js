@@ -9,6 +9,7 @@ var getTime = function () {
     Seconds >= 10 ? Seconds : Seconds = '0' + Seconds
     return Hours + ':' + Minutes + ':' + Seconds
 }
+//搜索栏
 
 //页面时间加载
 var time = setInterval(function () {
@@ -55,6 +56,10 @@ window.onload = function () {
         $(ele).children('.text').html(evenData[index]['evenText'])
     
 
+    })
+    $('#searchBtn').click(function(){
+        console.log(1);
+        window.location.replace("https://www.baidu.com/s?wd="+$('#searchBox').val());
     })
     timer = onloadEventSet()
     $('.event li').eq(timer).addClass('action')

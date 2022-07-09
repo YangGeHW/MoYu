@@ -56,6 +56,34 @@
   left: -40px;
   top: -50%;
 }
+.mainData .search {
+  position: absolute;
+  width: 100%;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.mainData .search input {
+  position: absolute;
+  left: 25%;
+  bottom: 50%;
+  display: inline-block;
+  width: 50%;
+  height: 40px;
+  border-radius: 10px;
+}
+.mainData .search button {
+  position: absolute;
+  left: 75%;
+  bottom: 50%;
+  height: 40px;
+  width: 60px;
+  font-size: 17px;
+  color: white;
+  background-color: #8080ff;
+  border: none;
+  border-radius: 20%;
+}
 .mainData #nextEvent {
   padding: 20px;
   color: white;
