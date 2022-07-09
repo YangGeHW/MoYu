@@ -83,7 +83,7 @@ var onloadEventSet = function(){
     }else if(Hours<15){
         console.log(3);
         return 3
-    }else if(Hours<17&&Minutes<45){
+    }else if(Hours<17||Minutes<45){
         console.log(4);
         return 4
     }else{
