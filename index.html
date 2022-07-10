@@ -11,6 +11,7 @@
     <script src="./lib/font_bzq0lisslnn/iconfont.js"></script>
     <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="./lib//font_bzq0lisslnn/iconfont.css">
+
 </head>
 
 <body>
@@ -27,7 +28,7 @@
         </div>
         <!-- 标题右侧 -->
         <div class="right">
-            <svg class="icon" aria-hidden="true">
+            <svg class="icon" aria-hidden="true" id="openSet">
                 <use xlink:href="#icon-shezhi2"></use>
             </svg>
             <svg class="icon" aria-hidden="true">
@@ -97,6 +98,21 @@
         </ul>
     </div>
     <!-- 事件区域 -->
+    <!-- 设置 -->
+    <div class="setting">
+        事件列表：
+        <ul>
+            <li>
+                时间：
+                <input type="time" class="eventTime">
+                名称：
+                <input type="text" class="eventName">
+                <!-- <button class="delevent">删除</button> -->
+            </li>
+        </ul>
+        <span id="closeSet">X</span>
+    </div>
+    <!-- 设置 -->
 
 </body>
 

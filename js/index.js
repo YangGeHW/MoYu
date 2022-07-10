@@ -1,3 +1,36 @@
+//初始化事件加载
+window.onload = function () {
+    if(localStorage.moyu_data){
+        evenData = JSON.parse(localStorage.moyu_data)
+    }
+    $('#openSet').on('click', function () {
+        $('.setting').show()
+    })
+    $('#closeSet').on('click', function () {
+        $('.setting').hide()
+        SetEvent()
+        Eventload()
+    })
+    $('.setting').hide()
+    Eventload()
+    //搜索设置
+    $('#searchBtn').click(function () {
+        console.log(1);
+        window.location.replace("https://www.baidu.com/s?wd=" + $('#searchBox').val());
+    })
+    //页面左上角接下来事件
+    timer = onloadEventSet()
+    $('.event li').eq(timer).addClass('action')
+    $('#nextEvent').text('接下来是:' + evenData[timer]['evenName'])
+    //鼠标移动事件效果
+    $('.event li').on('mouseenter', function () {
+        $('.event li').each(function () {
+            $(this).removeClass()
+        })
+        $(this).addClass('action')
+    })
+
+}
 //获取当前时间
 var getTime = function () {
     var nowDate = new Date()
@@ -48,55 +81,60 @@ var evenData = [
         evenText: '多一点欢笑来解除生活的烦恼；多一点宽容来谅解自己的不足；多一点乐观来面对做人的难处；多一点快乐来淡化人生的痛苦；多一点开心来洗去工作的疲劳！'
     }]
 
-window.onload = function () {
-    //初始化事件加载
+//事件/设置加载函数
+var Eventload = function () {
     $('.event li').each(function (index, ele) {
         $(ele).children().children('.name').html(evenData[index]['evenName'])
         $(ele).children().children('.time').html(evenData[index]['hour'] + ':' + evenData[index]['min'])
         $(ele).children('.text').html(evenData[index]['evenText'])
-    
+    })
+    var rows = []
+    for (k in evenData) {
+        var str = '<li>时间：<input type="time" class="eventTime">名称：<input type="text" class="eventName"><button class="delevent">删除</button></li>'
+        rows.push(str)
+    }
+    $('.setting ul').empty().append(rows.join(''))
+    $('.event li').each(function (index, ele) {
+        $(ele).children().children('.name').html(evenData[index]['evenName'])
+        $(ele).children().children('.time').html(evenData[index]['hour'] + ':' + evenData[index]['min'])
+        $(ele).children('.text').html(evenData[index]['evenText'])
+    })
+    $('.setting ul li').each(function (index, ele) {
+        $(ele).children('.eventTime').val(evenData[index]['hour'] + ':' + evenData[index]['min'])
+        $(ele).children('.eventName').val(evenData[index]['evenName'])
+    })
 
-    })
-    $('#searchBtn').click(function(){
-        console.log(1);
-        window.location.replace("https://www.baidu.com/s?wd="+$('#searchBox').val());
-    })
-    timer = onloadEventSet()
-    $('.event li').eq(timer).addClass('action')
-    $('#nextEvent').text('接下来是:'+evenData[timer]['evenName'])
-    //鼠标移动事件效果
-    $('.event li').on('mouseenter', function () {
-        $('.event li').each(function () {
-            $(this).removeClass()
-        })
-        $(this).addClass('action')
-    })
-  
 }
-
-var onloadEventSet = function(){
+// 判断下个事件
+var onloadEventSet = function () {
     getTime()
-    if(Hours<8){
-        console.log(0);
+    if (Hours < 8) {
         return 0
-    }else if(Hours<10){
-        console.log(1);
+    } else if (Hours < 10) {
         return 1
-    }else if(Hours<12){
-        console.log(2);
+    } else if (Hours < 12) {
         return 2
-    }else if(Hours<15){
-        console.log(3);
+    } else if (Hours < 15) {
         return 3
-    }else if(Hours<17||Minutes<45){
-        console.log(4);
+    } else if (Hours < 17 || Minutes < 45) {
         return 4
-    }else{
+    } else {
         alert('奶奶的下班了')
     }
 
 }
+//设置保存
+var SetEvent = function(){
+    $('.setting ul li').each(function (index, ele) {
+        var time = $(ele).children('.eventTime').val().split(':')
+        evenData[index]['hour'] = time[0]
+        evenData[index]['min'] = time[1]
+        evenData[index]['evenName'] = $(ele).children('.eventName').val()
 
+    })
+    if(!window.localStorage) return
+    localStorage.setItem('moyu_data',JSON.stringify(evenData))
+}
 
 
 
