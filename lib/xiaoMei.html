@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <textarea class="textInput" cols="30" rows="10" placeholder="直接粘贴进来"></textarea>
+  <button class="run">提交</button>
+  <p>结果展示：</p>
+  <div class="res"></div>
+  <script>
+    var ipt = document.querySelector('.textInput')
+    var run = document.querySelector('.run')
+    var res = document.querySelector('.res')
+
+    var map = {
+      "零": 0,
+
+      "一": 1,
+      "壹": 1,
+
+      "二": 2,
+      "贰": 2,
+      "两": 2,
+
+      "三": 3,
+      "叁": 3,
+
+      "四": 4,
+      "肆": 4,
+
+      "五": 5,
+      "伍": 5,
+
+      "六": 6,
+      "陆": 6,
+
+      "七": 7,
+      "柒": 7,
+
+      "八": 8,
+      "捌": 8,
+
+      "九": 9,
+      "玖": 9,
+
+      "十": 10,
+      "拾": 10,
+
+      "百": 100,
+      "佰": 100,
+
+      "千": 1000,
+      "仟": 1000,
+
+      "万": 10000,
+      "十万": 100000,
+      "百万": 1000000,
+      "千万": 10000000,
+      "亿": 100000000
+    };
+    // 解析失败返回-1，成功返回转换后的数字，不支持负数
+    function numberDigit(chinese_number) {
+      var len = chinese_number.length;
+      if (len == 0) return -1;
+      if (len == 1) return (map[chinese_number] <= 10) ? map[chinese_number] : -1;
+      var summary = 0;
+      if (map[chinese_number[0]] == 10) {
+        chinese_number = "一" + chinese_number;
+        len++;
+      }
+      if (len >= 3 && map[chinese_number[len - 1]] < 10) {
+        var last_second_num = map[chinese_number[len - 2]];
+        if (last_second_num == 100 || last_second_num == 1000 || last_second_num == 10000 || last_second_num == 100000000) {
+          for (var key in map) {
+            if (map[key] == last_second_num / 10) {
+              chinese_number += key;
+              len += key.length;
+              break;
+            }
+          }
+        }
+      }
+      if (chinese_number.match(/亿/g) && chinese_number.match(/亿/g).length > 1) return -1;
+      var splited = chinese_number.split("亿");
+      if (splited.length == 2) {
+        var rest = splited[1] == "" ? 0 : numberDigit(splited[1]);
+        return summary + numberDigit(splited[0]) * 100000000 + rest;
+      }
+      splited = chinese_number.split("万");
+      if (splited.length == 2) {
+        var rest = splited[1] == "" ? 0 : numberDigit(splited[1]);
+        return summary + numberDigit(splited[0]) * 10000 + rest;
+      }
+      var i = 0;
+      while (i < len) {
+        var first_char_num = map[chinese_number[i]];
+        var second_char_num = map[chinese_number[i + 1]];
+        if (second_char_num > 9)
+          summary += first_char_num * second_char_num;
+        i++;
+        if (i == len)
+          summary += first_char_num <= 9 ? first_char_num : 0;
+      }
+      return summary;
+    }
+
+
+    run.addEventListener('click', function () {
+      suan(ipt.value);
+    })
+    var suan = function (val) {
+      var zongjia = 0
+
+      var val1 = val.split('\n')
+      var val2 = ''
+      var reg1 = /[\u4e00-\u9fa5]/
+
+      for (i in val1) {
+        var shuliang = reg1.exec(val1[i])
+        var kuangao = val1[i].split(reg1)[0].split('*')
+        var kuan = (kuangao[0] * 1.5)
+        var gao = kuangao[1] * 1
+        var danjia = (kuan * gao * 25).toFixed(3) * 1
+        if (danjia % 25 != 0) {
+          danjia = (parseInt(danjia / 25) + 1) * 25
+        }
+
+        val2 += val1[i] + '   单价为：' + danjia + '\n'
+
+        console.log(danjia * numberDigit(shuliang));
+        zongjia += danjia * numberDigit(shuliang)
+      }
+      ipt.value = val2
+      res.innerHTML = zongjia
+    }
+
+
+
+
+
+  </script>
+</body>
+
+</html>

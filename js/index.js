@@ -3,6 +3,9 @@ window.onload = function () {
     if(localStorage.moyu_data){
         evenData = JSON.parse(localStorage.moyu_data)
     }
+    $('#xiaoMei').on('click',function(){
+        $(location).attr('href', './lib/xiaoMei.html');
+    })
     $('#openSet').on('click', function () {
         $('.setting').show()
     })
@@ -118,9 +121,7 @@ var onloadEventSet = function () {
         return 3
     } else if (Hours < 17 || Minutes < 45) {
         return 4
-    } else {
-        alert('奶奶的下班了')
-    }
+    } 
 
 }
 //设置保存
