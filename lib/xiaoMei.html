@@ -122,7 +122,12 @@
       var reg1 = /[\u4e00-\u9fa5]/
 
       for (i in val1) {
-        var shuliang = reg1.exec(val1[i])
+        if (reg1.exec(val1[i])) {
+
+          var shuliang = reg1.exec(val1[i])
+        } else {
+          var shuliang = '一'
+        }
         var kuangao = val1[i].split(reg1)[0].split('*')
         var kuan = (kuangao[0] * 1.5)
         var gao = kuangao[1] * 1
